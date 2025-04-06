@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
+/**
+ * Tipo que define la estructura de un manejador de errores de validación
+ */
 type ValidationHandler = (error: unknown, control: AbstractControl) => string;
 
+/**
+ * Servicio que maneja la validación de formularios y la generación de mensajes de error
+ * @Injectable
+ */
 @Injectable({ providedIn: 'root' })
 export class ValidationService {
+	/**
+	 * Manejadores de errores predefinidos para diferentes tipos de validación
+	 */
 	private readonly handlers: Record<string, ValidationHandler> = {
 		required: () => 'Este campo es obligatorio',
 
@@ -32,14 +42,18 @@ export class ValidationService {
 	};
 
 	/**
-	 * Permite registrar nuevos errores personalizados desde cualquier parte
+	 * Registra un nuevo manejador de errores personalizado
+	 * @param errorKey - Clave única para identificar el tipo de error
+	 * @param handler - Función que maneja el error y devuelve el mensaje correspondiente
 	 */
 	register(errorKey: string, handler: ValidationHandler): void {
 		this.handlers[errorKey] = handler;
 	}
 
 	/**
-	 * Devuelve el mensaje más relevante del control si está tocado
+	 * Obtiene el mensaje de error más relevante para un control de formulario
+	 * @param control - Control del formulario a validar
+	 * @returns El mensaje de error si el control es inválido y ha sido tocado, null en caso contrario
 	 */
 	getErrorMessage(control: AbstractControl | null): string | null {
 		if (!control?.errors || !control.touched) return null;
