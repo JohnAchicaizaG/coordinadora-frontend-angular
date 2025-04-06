@@ -1,10 +1,22 @@
 <div class="flex flex-col w-full h-full lg:flex-row">
 
-  <div class="relative h-full w-full lg:w-2/3 flex items-center justify-center bg-blue-50">
-    <router-outlet />
+  <!-- Contenedor principal -->
+  <div class="relative h-full w-full lg:w-1/2 flex items-center justify-center bg-blue-50 overflow-hidden">
+    <!-- Imagen como fondo en móviles -->
+    <img src="/images/login-bg.webp" alt="Login background"
+      class="absolute inset-0 object-cover w-full h-full z-0 xl:hidden" />
+
+    <!-- Capa semitransparente para oscurecer si quieres -->
+    <div class="absolute inset-0 bg-white/70 backdrop-blur-sm xl:hidden z-10"></div>
+
+    <!-- Formulario encima de la imagen en móviles, normal en xl -->
+    <div class="relative z-20 w-full px-4 max-w-xl">
+      <router-outlet />
+    </div>
   </div>
 
-  <div class="hidden h-full w-full lg:flex">
-    <img src="/images/login-bg.webp" alt="Login background" class="object-cover w-full h-full" />
+  <!-- Imagen tradicional solo en xl -->
+  <div class="hidden xl:flex w-2/3 h-full">
+    <img src="/images/login-bg.webp" alt="Login background" class="object-cover w-full h-full  " />
   </div>
 </div>
