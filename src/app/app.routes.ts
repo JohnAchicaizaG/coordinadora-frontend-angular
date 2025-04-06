@@ -5,6 +5,11 @@ import { DashboardLayoutComponent } from '@features/dashboard/layout/dashboard-l
 export const routes: Routes = [
 	{
 		path: '',
+		pathMatch: 'full', // 👈 importante: sin esto no funciona correctamente
+		redirectTo: 'login', // 👈 redirige a /login
+	},
+	{
+		path: '',
 		component: AuthLayoutComponent,
 		children: [
 			{

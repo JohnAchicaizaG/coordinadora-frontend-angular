@@ -1,1 +1,57 @@
-<p>register-form works!</p>,
+<form [formGroup]="form" (ngSubmit)="onSubmit()"
+  class="bg-white w-80  sm:max-w-lg md:w-lvh lg:w-lvh p-6 sm:p-10 md:p-12 lg:p-14 rounded-2xl shadow-xl space-y-6 mx-auto">
+  <h2 class="text-3xl font-bold text-gray-800 text-center">Crear cuenta</h2>
+
+  <!-- Nombre -->
+  <div class="flex flex-col">
+    <label for="name" class="text-sm font-medium text-gray-700">Nombre completo</label>
+    <input id="name" type="text" formControlName="name" placeholder="Tu nombre"
+      class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" />
+    @let nameError = validation.getErrorMessage(form.get('name'));
+    @if (nameError) {
+    <div class="text-sm text-red-500 mt-1">{{ nameError }}</div>
+    }
+  </div>
+
+  <!-- Correo -->
+  <div class="flex flex-col">
+    <label for="email" class="text-sm font-medium text-gray-700">Correo electrónico</label>
+    <input id="email" type="email" formControlName="email" placeholder="tucorreo@ejemplo.com"
+      class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" />
+    @let emailError = validation.getErrorMessage(form.get('email'));
+    @if (emailError) {
+    <div class="text-sm text-red-500 mt-1">{{ emailError }}</div>
+    }
+  </div>
+
+  <!-- Contraseña -->
+  <div class="flex flex-col">
+    <label for="password" class="text-sm font-medium text-gray-700">Contraseña</label>
+    <input id="password" type="password" formControlName="password" placeholder="••••••••"
+      class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" />
+    @let passwordError = validation.getErrorMessage(form.get('password'));
+    @if (passwordError) {
+    <div class="text-sm text-red-500 mt-1">{{ passwordError }}</div>
+    }
+  </div>
+
+  <!-- Rol -->
+  <div class="flex flex-col">
+    <label for="role" class="text-sm font-medium text-gray-700">Rol</label>
+    <select id="role" formControlName="role"
+      class="mt-1 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+      <option [ngValue]="undefined" disabled selected>Selecciona un rol</option>
+      <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+    </select>
+    @let roleError = validation.getErrorMessage(form.get('role'));
+    @if (roleError) {
+    <div class="text-sm text-red-500 mt-1">{{ roleError }}</div>
+    }
+  </div>
+
+  <!-- Botón -->
+  <button type="submit" [disabled]="form.invalid"
+    class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200 disabled:opacity-50">
+    Registrarse
+  </button>
+</form>
